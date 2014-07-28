@@ -15,6 +15,9 @@ import org.appcelerator.titanium.TiApplication;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.kroll.common.TiConfig;
 
+import android.provider.ContactsContract;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+
 
 @Kroll.module(name="ContactsSearch", id="com.adampash.contactSearch")
 public class ContactsSearchModule extends KrollModule
@@ -45,6 +48,12 @@ public class ContactsSearchModule extends KrollModule
   {
     Log.d(LCAT, "example called");
     return "hello world";
+  }
+
+  @Kroll.method
+  public String getPerson()
+  {
+    return "foo";
   }
 
   // Properties
