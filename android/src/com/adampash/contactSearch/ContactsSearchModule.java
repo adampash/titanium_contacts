@@ -79,9 +79,7 @@ public class ContactsSearchModule extends KrollModule
       ContactsContract.Contacts._ID,
         ContactsContract.Contacts.DISPLAY_NAME,
         ContactsContract.Contacts.LOOKUP_KEY,
-        ContactsContract.Contacts.PHOTO_ID,
-        ContactsContract.Contacts.PHOTO_URI,
-        ContactsContract.Contacts.PHOTO_THUMBNAIL_URI
+        ContactsContract.Contacts.PHOTO_ID
     };
     String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '" +
       "1" + "'" + " AND " +
@@ -113,12 +111,6 @@ public class ContactsSearchModule extends KrollModule
           Integer photo_id = cursor.getInt(
               cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID)
               );
-          String photo_uri = cursor.getString(
-              cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_URI)
-              );
-          String photo_thumb = cursor.getString(
-              cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI)
-              );
           String name = cursor.getString(
               cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
               );
@@ -127,8 +119,6 @@ public class ContactsSearchModule extends KrollModule
           contact.put("fullName", name);
           contact.put("id", id);
           contact.put("photo_id", photo_id);
-          contact.put("photo_uri", photo_uri);
-          contact.put("photo_thumb", photo_thumb);
           if (photo_id != null && includPhoto) {
             TiBlob image = fetchThumbnail(photo_id);
             contact.put("image", image);
