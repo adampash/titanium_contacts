@@ -16,42 +16,17 @@ import org.appcelerator.kroll.common.Log;
 import org.appcelerator.kroll.common.TiConfig;
 
 import android.provider.ContactsContract;
-/* import android.support.v4.app.LoaderManager.LoaderCallbacks; */
 import android.annotation.SuppressLint;
-/* import android.annotation.TargetApi; */
 import android.app.Activity;
-/* import android.app.SearchManager; */
-/* import android.content.Context; */
-/* import android.content.Intent; */
-/* import android.content.res.AssetFileDescriptor; */
 import android.database.Cursor;
 /* import android.graphics.Bitmap; */
 import android.net.Uri;
-/* import android.os.Build; */
 import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
-/* import android.provider.ContactsContract.Contacts.Photo; */
-/* import android.support.v4.app.ListFragment; */
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-/* import android.support.v4.widget.CursorAdapter; */
-/* import android.text.SpannableString; */
-/* import android.text.TextUtils; */
-/* import android.text.style.TextAppearanceSpan; */
-/* import android.util.DisplayMetrics; */
-/* import android.util.Log; */
-/* import android.util.TypedValue; */
 
-/* import com.example.android.contactslist.BuildConfig; */
-/* import com.example.android.contactslist.R; */
-/* import com.example.android.contactslist.util.ImageLoader; */
-/* import com.example.android.contactslist.util.Utils; */
-
-/* import java.io.FileDescriptor; */
-/* import java.io.FileNotFoundException; */
-/* import java.io.IOException; */
-/* import java.util.Locale; */
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,50 +53,7 @@ public class ContactsSearchModule extends KrollModule
   public static void onAppCreate(TiApplication app)
   {
     Log.d(LCAT, "inside onAppCreate");
-
-    // Create the main contacts adapter
-    /* mAdapter = new ContactsAdapter(getActivity()); */
-    // put module init code that needs to run when the application is created
   }
-
-  // Methods
-  @Kroll.method
-  public String example()
-  {
-    Log.d(LCAT, "example called");
-    return "hello world";
-  }
-
-  // Properties
-  @Kroll.getProperty
-  public String getExampleProp()
-  {
-    Log.d(LCAT, "get example property");
-    return "hello world";
-  }
-
-
-  @Kroll.setProperty
-  public void setExampleProp(String value) {
-    Log.d(LCAT, "set example property: " + value);
-  }
-
-
-
-  /* THIS IS ALL THE NEW STUFF  */
-
-  private String mSearchTerm; // Stores the current search query term
-  /* private ContactsAdapter mAdapter; // The main query adapter */
-  // The contact's _ID value
-  long mContactId;
-  // The contact's LOOKUP_KEY
-  String mContactKey;
-  // A content URI for the selected contact
-  Uri mContactUri;
-  // An adapter that binds the result Cursor to the ListView
-  /* private SimpleCursorAdapter mCursorAdapter; */
-
-
 
   @Kroll.method
   public String getPerson() {
@@ -135,59 +67,63 @@ public class ContactsSearchModule extends KrollModule
     TiApplication appContext = TiApplication.getInstance();
     Activity activity = appContext.getCurrentActivity();
 
-    List<HashMap<String, String>> contacts = new ArrayList<HashMap<String, String>>();
+    List<HashMap<Object, Object>> contacts = new ArrayList<HashMap<Object, Object>>();
 
     if (query == "") {
       HashMap[] contactsArray = contacts.toArray(new HashMap[contacts.size()]); 
       return contactsArray;
     }
 
-    int count = 0;
     // Run query
     Uri uri = ContactsContract.Contacts.CONTENT_URI;
     String[] projection = new String[] {
       ContactsContract.Contacts._ID,
         ContactsContract.Contacts.DISPLAY_NAME,
-        ContactsContract.Contacts.LOOKUP_KEY
+        ContactsContract.Contacts.LOOKUP_KEY,
+        ContactsContract.Contacts.PHOTO_ID
     };
     String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '" +
       "1" + "'" + " AND " +
       ContactsContract.Contacts.DISPLAY_NAME + " LIKE ? OR " +
       ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?";
 
-    /* String[] selectionArgs = null; */
     String[] selectionArgs = new String[2];
     selectionArgs[0] = query + "%";
     selectionArgs[1] = "% " + query + "%";
     String sortOrder = ContactsContract.Contacts.DISPLAY_NAME +
       " COLLATE LOCALIZED ASC";
 
-    Cursor cursor =  activity.managedQuery(uri, projection, selection, selectionArgs, sortOrder);
-
-    String jsContacts = "AppMobi.people = [";
+    Cursor cursor =  activity.managedQuery(
+        uri, projection, selection, selectionArgs, sortOrder
+    );
 
     if (cursor.getCount() > 0)
     {
       while (cursor.moveToNext())
       {
-        //GRAB CURRENT LOOKUP_KEY;
-        String lk = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-        String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-        String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-        /* String jsPerson = JSONValueForPerson(lk); */
-        String jsPerson = name;
-        jsContacts += jsPerson ;
-        count = count + 1;
-        HashMap<String, String> contact = new HashMap<String, String>();
+        //GRAB CURRENT values;
+        String lk = cursor.getString(
+            cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY)
+        );
+        String id = cursor.getString(
+            cursor.getColumnIndex(ContactsContract.Contacts._ID)
+        );
+        String photo_id = cursor.getString(
+            cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID)
+        );
+        String name = cursor.getString(
+            cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+        );
+
+        HashMap<Object, Object> contact = new HashMap<Object, Object>();
         contact.put("fullName", name);
         contact.put("id", id);
+        contact.put("photo_id", photo_id);
         contacts.add(contact);
       }
     }
 
-    jsContacts += "];";
     HashMap[] contactsArray = contacts.toArray(new HashMap[contacts.size()]); 
     return contactsArray;
   }
-
 }
