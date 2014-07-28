@@ -12,20 +12,23 @@ import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
 
 import org.appcelerator.titanium.TiApplication;
+import org.appcelerator.titanium.TiBlob;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.kroll.common.TiConfig;
 
 import android.provider.ContactsContract;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
-/* import android.graphics.Bitmap; */
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
+/* import android.os.Bundle; */
 import android.provider.ContactsContract.Contacts;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.content.ContentUris;
+import android.content.ContentResolver;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -55,17 +58,13 @@ public class ContactsSearchModule extends KrollModule
     Log.d(LCAT, "inside onAppCreate");
   }
 
-  @Kroll.method
-  public String getPerson() {
-    /* getLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this); */
-    return "foo";
-  }
+  public TiApplication appContext = TiApplication.getInstance();
+  public Activity activity = appContext.getCurrentActivity();
 
   @Kroll.method
-  private HashMap[] getPeopleWithName(String query)
+  private HashMap[] getPeopleWithName(
+      String query, @Kroll.argument(optional=true) boolean includPhoto)
   {
-    TiApplication appContext = TiApplication.getInstance();
-    Activity activity = appContext.getCurrentActivity();
 
     List<HashMap<Object, Object>> contacts = new ArrayList<HashMap<Object, Object>>();
 
@@ -80,7 +79,9 @@ public class ContactsSearchModule extends KrollModule
       ContactsContract.Contacts._ID,
         ContactsContract.Contacts.DISPLAY_NAME,
         ContactsContract.Contacts.LOOKUP_KEY,
-        ContactsContract.Contacts.PHOTO_ID
+        ContactsContract.Contacts.PHOTO_ID,
+        ContactsContract.Contacts.PHOTO_URI,
+        ContactsContract.Contacts.PHOTO_THUMBNAIL_URI
     };
     String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '" +
       "1" + "'" + " AND " +
@@ -95,35 +96,85 @@ public class ContactsSearchModule extends KrollModule
 
     Cursor cursor =  activity.managedQuery(
         uri, projection, selection, selectionArgs, sortOrder
-    );
+        );
 
-    if (cursor.getCount() > 0)
-    {
-      while (cursor.moveToNext())
+    try {
+      if (cursor.getCount() > 0)
       {
-        //GRAB CURRENT values;
-        String lk = cursor.getString(
-            cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY)
-        );
-        String id = cursor.getString(
-            cursor.getColumnIndex(ContactsContract.Contacts._ID)
-        );
-        String photo_id = cursor.getString(
-            cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID)
-        );
-        String name = cursor.getString(
-            cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-        );
+        while (cursor.moveToNext())
+        {
+          //GRAB CURRENT values;
+          String lk = cursor.getString(
+              cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY)
+              );
+          Integer id = cursor.getInt(
+              cursor.getColumnIndex(ContactsContract.Contacts._ID)
+              );
+          Integer photo_id = cursor.getInt(
+              cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID)
+              );
+          String photo_uri = cursor.getString(
+              cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_URI)
+              );
+          String photo_thumb = cursor.getString(
+              cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI)
+              );
+          String name = cursor.getString(
+              cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+              );
 
-        HashMap<Object, Object> contact = new HashMap<Object, Object>();
-        contact.put("fullName", name);
-        contact.put("id", id);
-        contact.put("photo_id", photo_id);
-        contacts.add(contact);
-      }
+          HashMap<Object, Object> contact = new HashMap<Object, Object>();
+          contact.put("fullName", name);
+          contact.put("id", id);
+          contact.put("photo_id", photo_id);
+          contact.put("photo_uri", photo_uri);
+          contact.put("photo_thumb", photo_thumb);
+          if (photo_id != null && includPhoto) {
+            TiBlob image = fetchThumbnail(photo_id);
+            contact.put("image", image);
+          }
+          contacts.add(contact);
+        }
     }
 
     HashMap[] contactsArray = contacts.toArray(new HashMap[contacts.size()]); 
     return contactsArray;
+    }
+    finally {
+      cursor.close();
+    }
+  }
+
+  // bastardized from http://stackoverflow.com/questions/2383580/
+  @Kroll.method
+  private TiBlob fetchThumbnail(int thumbnailId) {
+    ContentResolver contentResolver = appContext.getContentResolver();
+
+    String[] PHOTO_BITMAP_PROJECTION = new String[] {
+          ContactsContract.CommonDataKinds.Photo.PHOTO
+    };
+    Uri uri = ContentUris.withAppendedId(
+        ContactsContract.Data.CONTENT_URI, thumbnailId
+    );
+    Cursor cursor = contentResolver.query(
+        uri, PHOTO_BITMAP_PROJECTION, null, null, null
+      );
+
+    try {
+      Bitmap thumbnail = null;
+      if (cursor.moveToFirst()) {
+        byte[] thumbnailBytes = cursor.getBlob(0);
+        if (thumbnailBytes != null) {
+          thumbnail = BitmapFactory.decodeByteArray(
+              thumbnailBytes, 0, thumbnailBytes.length);
+        }
+      }
+      /* return thumbnail; */
+      return TiBlob.blobFromImage(thumbnail);
+    }
+    finally {
+      cursor.close();
+    }
+
   }
 }

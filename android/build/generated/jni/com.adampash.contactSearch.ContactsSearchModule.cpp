@@ -91,6 +91,8 @@ Handle<FunctionTemplate> ContactsSearchModule::getProxyTemplate()
 
 	// Method bindings --------------------------------------------------------
 	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "getAllContacts", ContactsSearchModule::getAllContacts);
+	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "fetchThumbnail", ContactsSearchModule::fetchThumbnail);
+	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "loadImage", ContactsSearchModule::loadImage);
 	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "example", ContactsSearchModule::example);
 	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "getPerson", ContactsSearchModule::getPerson);
 	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "getPeopleWithName", ContactsSearchModule::getPeopleWithName);
@@ -140,6 +142,156 @@ Handle<Value> ContactsSearchModule::getAllContacts(const Arguments& args)
 	if (args.Length() < 1) {
 		char errorStringBuffer[100];
 		sprintf(errorStringBuffer, "getAllContacts: Invalid number of arguments. Expected 1 but got %d", args.Length());
+		return ThrowException(Exception::Error(String::New(errorStringBuffer)));
+	}
+
+	jvalue jArguments[1];
+
+
+
+
+	
+	
+	if (!args[0]->IsNull()) {
+		Local<Value> arg_0 = args[0];
+		jArguments[0].l =
+			titanium::TypeConverter::jsValueToJavaString(env, arg_0);
+	} else {
+		jArguments[0].l = NULL;
+	}
+
+	jobject javaProxy = proxy->getJavaObject();
+	jobject jResult = (jobject)env->CallObjectMethodA(javaProxy, methodID, jArguments);
+
+
+
+	if (!JavaObject::useGlobalRefs) {
+		env->DeleteLocalRef(javaProxy);
+	}
+
+
+
+				env->DeleteLocalRef(jArguments[0].l);
+
+
+	if (env->ExceptionCheck()) {
+		Handle<Value> jsException = titanium::JSException::fromJavaException();
+		env->ExceptionClear();
+		return jsException;
+	}
+
+	if (jResult == NULL) {
+		return Null();
+	}
+
+	Handle<Value> v8Result = titanium::TypeConverter::javaObjectToJsValue(env, jResult);
+
+	env->DeleteLocalRef(jResult);
+
+
+	return v8Result;
+
+}
+Handle<Value> ContactsSearchModule::fetchThumbnail(const Arguments& args)
+{
+	LOGD(TAG, "fetchThumbnail()");
+	HandleScope scope;
+
+	JNIEnv *env = titanium::JNIScope::getEnv();
+	if (!env) {
+		return titanium::JSException::GetJNIEnvironmentError();
+	}
+	static jmethodID methodID = NULL;
+	if (!methodID) {
+		methodID = env->GetMethodID(ContactsSearchModule::javaClass, "fetchThumbnail", "(I)Lorg/appcelerator/titanium/TiBlob;");
+		if (!methodID) {
+			const char *error = "Couldn't find proxy method 'fetchThumbnail' with signature '(I)Lorg/appcelerator/titanium/TiBlob;'";
+			LOGE(TAG, error);
+				return titanium::JSException::Error(error);
+		}
+	}
+
+	titanium::Proxy* proxy = titanium::Proxy::unwrap(args.Holder());
+
+	if (args.Length() < 1) {
+		char errorStringBuffer[100];
+		sprintf(errorStringBuffer, "fetchThumbnail: Invalid number of arguments. Expected 1 but got %d", args.Length());
+		return ThrowException(Exception::Error(String::New(errorStringBuffer)));
+	}
+
+	jvalue jArguments[1];
+
+
+
+
+	
+	
+		if (titanium::V8Util::isNaN(args[0]) || args[0]->ToString()->Length() == 0) {
+			const char *error = "Invalid value, expected type Number.";
+			LOGE(TAG, error);
+			return titanium::JSException::Error(error);
+		}
+	if (!args[0]->IsNull()) {
+		Local<Number> arg_0 = args[0]->ToNumber();
+		jArguments[0].i =
+			titanium::TypeConverter::jsNumberToJavaInt(env, arg_0);
+	} else {
+		jArguments[0].i = NULL;
+	}
+
+	jobject javaProxy = proxy->getJavaObject();
+	jobject jResult = (jobject)env->CallObjectMethodA(javaProxy, methodID, jArguments);
+
+
+
+	if (!JavaObject::useGlobalRefs) {
+		env->DeleteLocalRef(javaProxy);
+	}
+
+
+
+	if (env->ExceptionCheck()) {
+		Handle<Value> jsException = titanium::JSException::fromJavaException();
+		env->ExceptionClear();
+		return jsException;
+	}
+
+	if (jResult == NULL) {
+		return Null();
+	}
+
+	Handle<Value> v8Result = titanium::TypeConverter::javaObjectToJsValue(env, jResult);
+
+	env->DeleteLocalRef(jResult);
+
+
+	return v8Result;
+
+}
+Handle<Value> ContactsSearchModule::loadImage(const Arguments& args)
+{
+	LOGD(TAG, "loadImage()");
+	HandleScope scope;
+
+	JNIEnv *env = titanium::JNIScope::getEnv();
+	if (!env) {
+		return titanium::JSException::GetJNIEnvironmentError();
+	}
+	static jmethodID methodID = NULL;
+	if (!methodID) {
+		methodID = env->GetMethodID(ContactsSearchModule::javaClass, "loadImage", "(Ljava/lang/String;)LTiBlob;");
+		if (!methodID) {
+			const char *error = "Couldn't find proxy method 'loadImage' with signature '(Ljava/lang/String;)LTiBlob;'";
+			LOGE(TAG, error);
+				return titanium::JSException::Error(error);
+		}
+	}
+
+	titanium::Proxy* proxy = titanium::Proxy::unwrap(args.Holder());
+
+	if (args.Length() < 1) {
+		char errorStringBuffer[100];
+		sprintf(errorStringBuffer, "loadImage: Invalid number of arguments. Expected 1 but got %d", args.Length());
 		return ThrowException(Exception::Error(String::New(errorStringBuffer)));
 	}
 
@@ -305,9 +457,9 @@ Handle<Value> ContactsSearchModule::getPeopleWithName(const Arguments& args)
 	}
 	static jmethodID methodID = NULL;
 	if (!methodID) {
-		methodID = env->GetMethodID(ContactsSearchModule::javaClass, "getPeopleWithName", "(Ljava/lang/String;)[Ljava/util/HashMap;");
+		methodID = env->GetMethodID(ContactsSearchModule::javaClass, "getPeopleWithName", "(Ljava/lang/String;Z)[Ljava/util/HashMap;");
 		if (!methodID) {
-			const char *error = "Couldn't find proxy method 'getPeopleWithName' with signature '(Ljava/lang/String;)[Ljava/util/HashMap;'";
+			const char *error = "Couldn't find proxy method 'getPeopleWithName' with signature '(Ljava/lang/String;Z)[Ljava/util/HashMap;'";
 			LOGE(TAG, error);
 				return titanium::JSException::Error(error);
 		}
@@ -321,7 +473,7 @@ Handle<Value> ContactsSearchModule::getPeopleWithName(const Arguments& args)
 		return ThrowException(Exception::Error(String::New(errorStringBuffer)));
 	}
 
-	jvalue jArguments[1];
+	jvalue jArguments[2];
 
 
 
@@ -334,6 +486,21 @@ Handle<Value> ContactsSearchModule::getPeopleWithName(const Arguments& args)
 			titanium::TypeConverter::jsValueToJavaString(env, arg_0);
 	} else {
 		jArguments[0].l = NULL;
+	}
+
+	
+	if (args.Length() <= 1) {
+		jArguments[1].z = false;
+
+	} else {
+	
+	if (!args[1]->IsNull()) {
+		Local<Boolean> arg_1 = args[1]->ToBoolean();
+		jArguments[1].z =
+			titanium::TypeConverter::jsBooleanToJavaBoolean(env, arg_1);
+	} else {
+		jArguments[1].z = NULL;
+	}
 	}
 
 	jobject javaProxy = proxy->getJavaObject();
