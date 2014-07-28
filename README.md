@@ -1,3 +1,8 @@
+What is it?
+-----------
+
+A Titanium module for Android contact search because the default provided by `Ti.Contacts.getPeopleWithName` on Android searches contacts that aren't supposed to be visible (e.g., My Contacts vs. All Contacts if you sync with Google Contacts). That can cause contact searches to go *very* slowly on Android in Titanium and causes results you wouldn't expect. This lightweight only searches the appropriate contacts, and it's considerably quicker.
+
 Usage
 -----
 
