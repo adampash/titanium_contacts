@@ -130,12 +130,17 @@ public class ContactsSearchModule extends KrollModule
   }
 
   @Kroll.method
-  private HashMap[] getAllContacts(String query)
+  private HashMap[] getPeopleWithName(String query)
   {
     TiApplication appContext = TiApplication.getInstance();
     Activity activity = appContext.getCurrentActivity();
 
     List<HashMap<String, String>> contacts = new ArrayList<HashMap<String, String>>();
+
+    if (query == "") {
+      HashMap[] contactsArray = contacts.toArray(new HashMap[contacts.size()]); 
+      return contactsArray;
+    }
 
     int count = 0;
     // Run query
@@ -147,13 +152,15 @@ public class ContactsSearchModule extends KrollModule
     };
     String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '" +
       "1" + "'" + " AND " +
+      ContactsContract.Contacts.DISPLAY_NAME + " LIKE ? OR " +
       ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?";
 
     /* String[] selectionArgs = null; */
-    String[] selectionArgs = new String[1];
-    selectionArgs[0] = "%" + query + "%";
-    /* selectionArgs[0] = "Ellen"; */
-    String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
+    String[] selectionArgs = new String[2];
+    selectionArgs[0] = query + "%";
+    selectionArgs[1] = "% " + query + "%";
+    String sortOrder = ContactsContract.Contacts.DISPLAY_NAME +
+      " COLLATE LOCALIZED ASC";
 
     Cursor cursor =  activity.managedQuery(uri, projection, selection, selectionArgs, sortOrder);
 

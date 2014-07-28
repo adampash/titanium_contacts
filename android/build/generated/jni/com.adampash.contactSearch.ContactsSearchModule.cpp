@@ -93,6 +93,7 @@ Handle<FunctionTemplate> ContactsSearchModule::getProxyTemplate()
 	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "getAllContacts", ContactsSearchModule::getAllContacts);
 	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "example", ContactsSearchModule::example);
 	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "getPerson", ContactsSearchModule::getPerson);
+	DEFINE_PROTOTYPE_METHOD(proxyTemplate, "getPeopleWithName", ContactsSearchModule::getPeopleWithName);
 
 	Local<ObjectTemplate> prototypeTemplate = proxyTemplate->PrototypeTemplate();
 	Local<ObjectTemplate> instanceTemplate = proxyTemplate->InstanceTemplate();
@@ -286,6 +287,80 @@ Handle<Value> ContactsSearchModule::getPerson(const Arguments& args)
 	}
 
 	Handle<Value> v8Result = titanium::TypeConverter::javaStringToJsString(env, jResult);
+
+	env->DeleteLocalRef(jResult);
+
+
+	return v8Result;
+
+}
+Handle<Value> ContactsSearchModule::getPeopleWithName(const Arguments& args)
+{
+	LOGD(TAG, "getPeopleWithName()");
+	HandleScope scope;
+
+	JNIEnv *env = titanium::JNIScope::getEnv();
+	if (!env) {
+		return titanium::JSException::GetJNIEnvironmentError();
+	}
+	static jmethodID methodID = NULL;
+	if (!methodID) {
+		methodID = env->GetMethodID(ContactsSearchModule::javaClass, "getPeopleWithName", "(Ljava/lang/String;)[Ljava/util/HashMap;");
+		if (!methodID) {
+			const char *error = "Couldn't find proxy method 'getPeopleWithName' with signature '(Ljava/lang/String;)[Ljava/util/HashMap;'";
+			LOGE(TAG, error);
+				return titanium::JSException::Error(error);
+		}
+	}
+
+	titanium::Proxy* proxy = titanium::Proxy::unwrap(args.Holder());
+
+	if (args.Length() < 1) {
+		char errorStringBuffer[100];
+		sprintf(errorStringBuffer, "getPeopleWithName: Invalid number of arguments. Expected 1 but got %d", args.Length());
+		return ThrowException(Exception::Error(String::New(errorStringBuffer)));
+	}
+
+	jvalue jArguments[1];
+
+
+
+
+	
+	
+	if (!args[0]->IsNull()) {
+		Local<Value> arg_0 = args[0];
+		jArguments[0].l =
+			titanium::TypeConverter::jsValueToJavaString(env, arg_0);
+	} else {
+		jArguments[0].l = NULL;
+	}
+
+	jobject javaProxy = proxy->getJavaObject();
+	jobject jResult = (jobject)env->CallObjectMethodA(javaProxy, methodID, jArguments);
+
+
+
+	if (!JavaObject::useGlobalRefs) {
+		env->DeleteLocalRef(javaProxy);
+	}
+
+
+
+				env->DeleteLocalRef(jArguments[0].l);
+
+
+	if (env->ExceptionCheck()) {
+		Handle<Value> jsException = titanium::JSException::fromJavaException();
+		env->ExceptionClear();
+		return jsException;
+	}
+
+	if (jResult == NULL) {
+		return Null();
+	}
+
+	Handle<Value> v8Result = titanium::TypeConverter::javaObjectToJsValue(env, jResult);
 
 	env->DeleteLocalRef(jResult);
 
