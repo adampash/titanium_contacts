@@ -8,7 +8,9 @@ var contactResults = contacts.getPeopleWithName("Adam");
 
 ```
 
-You can also optional fetch images (which slows things down) by adding `true` as the second variable in the call:
+That will return an array of contacts which include only the contact's name, contact id, and optionally, the contact photo (if you want more information, you can fetch it on-demand with something like `Ti.Contacts.getPersonByID(contactResults[0].id)`.
+
+You can also fetch images every time (which slows things down) by adding `true` as the second variable in the call:
 
 ```javascript
 
