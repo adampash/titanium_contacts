@@ -16,11 +16,47 @@ import org.appcelerator.kroll.common.Log;
 import org.appcelerator.kroll.common.TiConfig;
 
 import android.provider.ContactsContract;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
+/* import android.support.v4.app.LoaderManager.LoaderCallbacks; */
+import android.annotation.SuppressLint;
+/* import android.annotation.TargetApi; */
+/* import android.app.Activity; */
+/* import android.app.SearchManager; */
+/* import android.content.Context; */
+/* import android.content.Intent; */
+/* import android.content.res.AssetFileDescriptor; */
+import android.database.Cursor;
+/* import android.graphics.Bitmap; */
+import android.net.Uri;
+/* import android.os.Build; */
+import android.os.Bundle;
+import android.provider.ContactsContract.Contacts;
+/* import android.provider.ContactsContract.Contacts.Photo; */
+/* import android.support.v4.app.ListFragment; */
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+/* import android.support.v4.widget.CursorAdapter; */
+/* import android.text.SpannableString; */
+/* import android.text.TextUtils; */
+/* import android.text.style.TextAppearanceSpan; */
+/* import android.util.DisplayMetrics; */
+/* import android.util.Log; */
+/* import android.util.TypedValue; */
+
+/* import com.example.android.contactslist.BuildConfig; */
+/* import com.example.android.contactslist.R; */
+/* import com.example.android.contactslist.util.ImageLoader; */
+/* import com.example.android.contactslist.util.Utils; */
+
+/* import java.io.FileDescriptor; */
+/* import java.io.FileNotFoundException; */
+/* import java.io.IOException; */
+/* import java.util.Locale; */
+
 
 
 @Kroll.module(name="ContactsSearch", id="com.adampash.contactSearch")
-public class ContactsSearchModule extends KrollModule
+public class ContactsSearchModule extends KrollModule implements LoaderManager.LoaderCallbacks<Cursor>
 {
 
   // Standard Debugging variables
@@ -39,6 +75,9 @@ public class ContactsSearchModule extends KrollModule
   public static void onAppCreate(TiApplication app)
   {
     Log.d(LCAT, "inside onAppCreate");
+
+    // Create the main contacts adapter
+    /* mAdapter = new ContactsAdapter(getActivity()); */
     // put module init code that needs to run when the application is created
   }
 
@@ -48,12 +87,6 @@ public class ContactsSearchModule extends KrollModule
   {
     Log.d(LCAT, "example called");
     return "hello world";
-  }
-
-  @Kroll.method
-  public String getPerson()
-  {
-    return "foo";
   }
 
   // Properties
@@ -70,5 +103,147 @@ public class ContactsSearchModule extends KrollModule
     Log.d(LCAT, "set example property: " + value);
   }
 
-}
 
+
+  /* THIS IS ALL THE NEW STUFF  */
+
+  private String mSearchTerm; // Stores the current search query term
+  /* private ContactsAdapter mAdapter; // The main query adapter */
+  // The contact's _ID value
+  long mContactId;
+  // The contact's LOOKUP_KEY
+  String mContactKey;
+  // A content URI for the selected contact
+  Uri mContactUri;
+  // An adapter that binds the result Cursor to the ListView
+  /* private SimpleCursorAdapter mCursorAdapter; */
+
+
+
+  @Kroll.method
+  public String getPerson() {
+    /* getLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this); */
+    return "foo";
+  }
+
+  @Override
+  public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+  }
+
+
+  @Override
+  public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    // If this is the loader for finding contacts in the Contacts Provider
+    // (the only one supported)
+    if (id == ContactsQuery.QUERY_ID) {
+      Uri contentUri;
+      // There are two types of searches, one which displays all contacts and
+      // one which filters contacts by a search query. If mSearchTerm is set
+      // then a search query has been entered and the latter should be used.
+      if (mSearchTerm == null) {
+        // Since there's no search string, use the content URI that searches the entire
+        // Contacts table
+        contentUri = ContactsQuery.CONTENT_URI;
+      } else {
+        // Since there's a search string, use the special content Uri that searches the
+        // Contacts table. The URI consists of a base Uri and the search string.
+        contentUri =
+          Uri.withAppendedPath(ContactsQuery.FILTER_URI, Uri.encode(mSearchTerm));
+      }
+
+      // Returns a new CursorLoader for querying the Contacts table. No arguments are used
+      // for the selection clause. The search string is either encoded onto the content URI,
+      // or no contacts search string is used. The other search criteria are constants. See
+      // the ContactsQuery interface.
+      return new CursorLoader(getActivity(),
+          contentUri,
+          ContactsQuery.PROJECTION,
+          ContactsQuery.SELECTION,
+          null,
+          ContactsQuery.SORT_ORDER);
+    }
+
+    /* Log.e(TAG, "onCreateLoader - incorrect ID provided (" + id + ")"); */
+    return null;
+  }
+
+  @Override
+  public void onLoaderReset(Loader<Cursor> loader) {
+    /* if (loader.getId() == ContactsQuery.QUERY_ID) { */
+    // When the loader is being reset, clear the cursor from the adapter. This allows the
+    // cursor resources to be freed.
+    /* mAdapter.swapCursor(null); */
+    /* } */
+  }
+
+
+  /**
+   * This interface defines constants for the Cursor and CursorLoader, based on constants defined
+   * in the {@link android.provider.ContactsContract.Contacts} class.
+   */
+  public interface ContactsQuery {
+
+    // An identifier for the loader
+    final static int QUERY_ID = 1;
+
+    // A content URI for the Contacts table
+    final static Uri CONTENT_URI = Contacts.CONTENT_URI;
+
+    // The search/filter query Uri
+    final static Uri FILTER_URI = Contacts.CONTENT_FILTER_URI;
+
+    // The selection clause for the CursorLoader query. The search criteria defined here
+    // restrict results to contacts that have a display name and are linked to visible groups.
+    // Notice that the search on the string provided by the user is implemented by appending
+    // the search string to CONTENT_FILTER_URI.
+    @SuppressLint("InlinedApi")
+    final static String SELECTION =
+    (Contacts.DISPLAY_NAME_PRIMARY) +
+    "<>''" + " AND " + Contacts.IN_VISIBLE_GROUP + "=1";
+
+    // The desired sort order for the returned Cursor. In Android 3.0 and later, the primary
+    // sort key allows for localization. In earlier versions. use the display name as the sort
+    // key.
+    @SuppressLint("InlinedApi")
+    final static String SORT_ORDER =
+    Contacts.SORT_KEY_PRIMARY;
+
+    // The projection for the CursorLoader query. This is a list of columns that the Contacts
+    // Provider should return in the Cursor.
+    @SuppressLint("InlinedApi")
+    final static String[] PROJECTION = {
+
+      // The contact's row id
+      Contacts._ID,
+
+      // A pointer to the contact that is guaranteed to be more permanent than _ID. Given
+      // a contact's current _ID value and LOOKUP_KEY, the Contacts Provider can generate
+      // a "permanent" contact URI.
+      Contacts.LOOKUP_KEY,
+
+      // In platform version 3.0 and later, the Contacts table contains
+      // DISPLAY_NAME_PRIMARY, which either contains the contact's displayable name or
+      // some other useful identifier such as an email address. This column isn't
+      // available in earlier versions of Android, so you must use Contacts.DISPLAY_NAME
+      // instead.
+      Contacts.DISPLAY_NAME_PRIMARY,
+
+      // In Android 3.0 and later, the thumbnail image is pointed to by
+      // PHOTO_THUMBNAIL_URI. In earlier versions, there is no direct pointer; instead,
+      // you generate the pointer from the contact's ID value and constants defined in
+      // android.provider.ContactsContract.Contacts.
+      Contacts.PHOTO_THUMBNAIL_URI,
+
+      // The sort order column for the returned Cursor, used by the AlphabetIndexer
+      SORT_ORDER,
+    };
+
+    // The query column numbers which map to each value in the projection
+    final static int ID = 0;
+    final static int LOOKUP_KEY = 1;
+    final static int DISPLAY_NAME = 2;
+    final static int PHOTO_THUMBNAIL_DATA = 3;
+    final static int SORT_KEY = 4;
+  }
+
+}
