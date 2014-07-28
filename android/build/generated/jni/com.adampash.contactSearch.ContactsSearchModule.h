@@ -30,6 +30,7 @@ public:
 
 private:
 	// Methods -----------------------------------------------------------
+	static v8::Handle<v8::Value> getAllContacts(const v8::Arguments&);
 	static v8::Handle<v8::Value> example(const v8::Arguments&);
 	static v8::Handle<v8::Value> getPerson(const v8::Arguments&);
 

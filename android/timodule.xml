@@ -7,7 +7,9 @@
   <iphone>
   </iphone>
   <android xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <manifest>
+      <uses-permission android:name="android.permission.READ_CONTACTS" />
+    </manifest>
   </android>
   <mobileweb>
   </mobileweb>
