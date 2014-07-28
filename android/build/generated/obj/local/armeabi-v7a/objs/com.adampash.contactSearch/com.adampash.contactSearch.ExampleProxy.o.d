@@ -1,0 +1,185 @@
+/var/folders/n_/q429sxl55vx2pnx_1d7j0f_w0000gn/T//ap/contacts_search-generated/obj/local/armeabi-v7a/objs/com.adampash.contactSearch/com.adampash.contactSearch.ExampleProxy.o: \
+ jni/com.adampash.contactSearch.ExampleProxy.cpp \
+ jni/com.adampash.contactSearch.ExampleProxy.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/jni.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/cdefs.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/cdefs_elf.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/android/api-level.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stdarg.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_cprolog.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/features.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_stlport_version.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/user_config.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/compat.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/host.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_system.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_android.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_gcc.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/Proxy.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/v8.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/v8stdint.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stddef.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stdio.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/stdio.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/types.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/stdint.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/_types.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/machine/_types.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/posix_types.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/stddef.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/compiler.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/asm/posix_types.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/asm/types.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/types.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/machine/kernel.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/sysmacros.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/JavaObject.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/assert.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/assert.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/EventEmitter.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/NativeObject.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/AndroidUtil.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/android/log.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stdlib.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/stdlib.h \
+ /Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/string.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/string.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/malloc.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/alloca.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/strings.h \
+ /Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/memory.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/EventEmitter.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/JNIUtil.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/AndroidUtil.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/JSException.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/ProxyFactory.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/TypeConverter.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/V8Util.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/org.appcelerator.titanium.proxy.TiViewProxy.h \
+ /Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/Proxy.h
+
+jni/com.adampash.contactSearch.ExampleProxy.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/jni.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/cdefs.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/cdefs_elf.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/android/api-level.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stdarg.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_cprolog.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/features.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_stlport_version.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/user_config.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/compat.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/host.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_system.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_android.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_gcc.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/Proxy.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/v8.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/v8stdint.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stddef.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stdio.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/stdio.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/types.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/stdint.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/_types.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/machine/_types.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/posix_types.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/stddef.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/compiler.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/asm/posix_types.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/asm/types.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/linux/types.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/machine/kernel.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/sys/sysmacros.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/JavaObject.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/assert.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/assert.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/EventEmitter.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/NativeObject.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/AndroidUtil.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/android/log.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/stdlib.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/stdlib.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/sources/cxx-stl/stlport/stlport/string.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/../include/string.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/malloc.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/alloca.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/strings.h:
+
+/Users/ap/android-sdk/android-ndk-r9d/platforms/android-3/arch-arm/usr/include/memory.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/EventEmitter.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/JNIUtil.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/AndroidUtil.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/JSException.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/ProxyFactory.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/TypeConverter.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/V8Util.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/org.appcelerator.titanium.proxy.TiViewProxy.h:
+
+/Users/ap/Library/Application\ Support/Titanium/mobilesdk/osx/3.3.0.GA/android/native/include/Proxy.h:

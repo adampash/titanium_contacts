@@ -1,0 +1,18 @@
+%define lookup-function-name lookupGeneratedInit
+%define class-name ContactsSearchBindings
+%{
+
+#include <string.h>
+#include <v8.h>
+#include <KrollBindings.h>
+
+#include "com.adampash.contactSearch.ContactsSearchModule.h"
+#include "com.adampash.contactSearch.ExampleProxy.h"
+
+
+%}
+struct titanium::bindings::BindEntry;
+%%
+com.adampash.contactSearch.ContactsSearchModule, ::com::adampash::contactsearch::ContactsSearchModule::bindProxy, ::com::adampash::contactsearch::ContactsSearchModule::dispose
+com.adampash.contactSearch.ExampleProxy, ::com::adampash::contactsearch::contactssearch::ExampleProxy::bindProxy, ::com::adampash::contactsearch::contactssearch::ExampleProxy::dispose
+%%

@@ -1,0 +1,17 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 2
+description: contacts_search
+author: Adam Pash
+license: Specify your license
+copyright: Copyright (c) 2014 by Your Company
+
+# these should not be edited
+name: contacts_search
+moduleid: com.adampash.contactSearch
+guid: 2249848f-8de5-4b61-bfa5-90447f1b3473
+platform: android
+minsdk: 3.3.0.GA
